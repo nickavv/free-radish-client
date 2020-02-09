@@ -1,0 +1,14 @@
+{
+  "name": "free-radish-client",
+  "version": "0.1.0",
+  "description": "A web-server to handle free-radish compatible games and run the client side of them",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nickvv",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
