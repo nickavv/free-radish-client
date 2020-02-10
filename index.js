@@ -1,28 +1,21 @@
-const express = require('express');
-const ws = require('ws');
+'use strict';
 
-const app = express();
+const express = require('express');
+const { Server } = require('ws');
+const server = require('http').createServer();
+const app = require('./http-server');
+
 const port = process.env.PORT || 8524;
 
-const wss = new ws.Server({ app })
-
-app.use(express.json());
-
-// HTTP Routes
-app.use(express.static('public'));
-app.post('/api/post-event', (req, res) => {
-    console.log(req.body);
-    res.send(`Event Received`);
-});
-app.get('/api/', (req, res) => {
-    res.send('gotcha');
-});
+// Mount our express HTTP router into our server
+server.on('request', app);
 
 // WebSocket Handling
+const wss = new Server({ server });
 wss.on('connection', (ws) => {
     ws.on('message', (message) => {
         console.log(message);
     });
 });
 
-app.listen(port, () => console.log(`Free Radish Client is listening on port ${port}`));
+server.listen(port, () => console.log(`Free Radish Client is listening on port ${port}`));
