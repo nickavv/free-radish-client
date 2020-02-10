@@ -1,13 +1,10 @@
 const express = require('express');
 const ws = require('ws');
-const http = require('http');
 
 const app = express();
-const port = 8524;
+const port = process.env.PORT || 8524;
 
-const server = http.createServer(app);
-server.listen(8523);
-const wss = new ws.Server({ server })
+const wss = new ws.Server({ app })
 
 app.use(express.json());
 
