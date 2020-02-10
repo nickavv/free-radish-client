@@ -1,0 +1,41 @@
+body {
+    font-family: 'Varela Round', sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+}
+#room-code-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    max-width: 200px;
+}
+#room-code-form label {
+    align-self: flex-start;
+    color: #066653;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+#room-code-form input {
+    font-family: 'Varela Round', sans-serif;
+    padding: 2px 5px;
+    font-size: 2rem;
+    width: 195px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    color: #066653;
+    border: 1px solid #066653;
+}
+#room-code-form button {
+    align-self: stretch;
+    padding: 8px;
+    font-size: 1.4rem;
+    color: white;
+    background-color: #066653;
+    border-radius: 5px;
+    border: none;
+}
+#room-code-form.hidden {
+    display: none;
+}
