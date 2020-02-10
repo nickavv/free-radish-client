@@ -4,7 +4,8 @@
   "description": "A web-server to handle free-radish compatible games and run the client side of them",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "nickvv",
   "license": "ISC",
