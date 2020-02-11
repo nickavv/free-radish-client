@@ -8,20 +8,21 @@ body {
     flex-direction: column;
     align-items: center;
     margin: auto;
-    max-width: 200px;
+    width: 100%;
 }
 #room-code-form label {
+    font-size: 1.2rem;
     align-self: flex-start;
     color: #066653;
     font-weight: bold;
-    margin-bottom: 2px;
+    margin: 0 14px 5px;
 }
 #room-code-form input {
     font-family: 'Varela Round', sans-serif;
     padding: 2px 5px;
-    font-size: 2rem;
-    width: 195px;
-    margin-bottom: 15px;
+    width: 90%;
+    font-size: 2.5rem;
+    margin-bottom: 25px;
     text-transform: uppercase;
     border-radius: 5px;
     color: #066653;
@@ -30,12 +31,34 @@ body {
 #room-code-form button {
     align-self: stretch;
     padding: 8px;
-    font-size: 1.4rem;
+    font-size: 2.2rem;
     color: white;
     background-color: #066653;
     border-radius: 5px;
     border: none;
+    margin: 20px 10px;
 }
 #room-code-form.hidden {
     display: none;
+}
+
+
+@media screen and (min-width: 800px) {
+  #room-code-form {
+    max-width: 200px;
+  }
+
+  #room-code-form label {
+      font-size: 1rem;
+      margin: 0 0 2px;
+  }
+  #room-code-form input {
+    font-size: 2rem;
+    width: 195px;
+    margin-bottom: 15px;
+  }
+  #room-code-form button {
+    font-size: 1.4rem;
+    margin: 10px 0;
+  }
 }
