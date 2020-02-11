@@ -7,7 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: auto;
+    margin: 20px auto;
     width: 100%;
 }
 #room-code-form label {
@@ -45,6 +45,7 @@ body {
 
 @media screen and (min-width: 800px) {
   #room-code-form {
+    margin: 30px auto;
     max-width: 200px;
   }
 
