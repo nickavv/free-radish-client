@@ -28,12 +28,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
             switch(message.messageType) {
             case 'ERROR_INVALID_ROOM':
                 document.querySelector('#form-roomcode-invalid').classList.remove('hidden');
-                break;
+            break;
             case 'ERROR_NAME_TAKEN':
                 if (!inGame) {
                     document.querySelector('#form-name-invalid').classList.remove('hidden');
                 }
-                break;
+            break;
             case 'JOINED_ROOM_SUCCESS':
                 inGame = true;
                 vip = message.vip;
@@ -44,14 +44,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     })
                     .then((body) => {
                         document.querySelector('#game-content').innerHTML = body;
-                        document.querySelector('#name-bar').innerHTML = nickname;
-                        if (vip == false) {
-                            document.querySelectorAll('.vip-only').forEach((item, i) => {
-                                item.classList.add('hidden');
-                            });
-                        }
+                        initializeDebateGame();
                     });
-                break;
+            break;
             }
         }
     };
@@ -66,4 +61,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
         socket.onclose = function () {}; // disable onclose handler first
         socket.close();
     };
+
+    // Once the HTML for the debate game has loaded, set up all our listeners and such
+    function initializeDebateGame() {
+        document.querySelector('#name-bar span').innerHTML = nickname;
+        if (vip == false) {
+            document.querySelectorAll('.vip-only').forEach((item, i) => {
+                item.classList.add('hidden');
+            });
+        } else {
+            document.querySelectorAll('.non-vips').forEach((item, i) => {
+                item.classList.add('hidden');
+            });
+        }
+
+        document.querySelector('#all-in-button').addEventListener('click', function() {
+            var startMsg = {
+                messageType: 'GAME_STARTED',
+                roomCode,
+                nickname
+            };
+            socket.send(JSON.stringify(startMsg));
+        });
+    }
 });

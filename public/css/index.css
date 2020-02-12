@@ -5,6 +5,17 @@ body {
     margin: 0;
     padding: 0;
 }
+button {
+    font-family: 'Varela Round', sans-serif;
+    align-self: stretch;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+button:hover {
+    cursor: pointer;
+}
+
 .hidden {
     display: none !important;
 }
@@ -40,23 +51,27 @@ body {
     border: 1px solid #066653;
 }
 #room-code-form button {
-    align-self: stretch;
-    padding: 8px;
     font-size: 2.2rem;
     color: white;
     background-color: #066653;
-    border-radius: 5px;
-    border: none;
     margin: 20px 10px;
 }
 
 #name-bar {
     position: relative;
-    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
     padding: 10px;
     width: 100%;
     background-color: white;
     text-transform: uppercase;
+}
+#name-bar .fas {
+    font-size : 2.2rem;
+    margin-bottom: 5px;
+    margin-left: 7px;
 }
 
 #game-debate {
@@ -69,8 +84,18 @@ body {
 #game-debate #name-bar {
     color: #066653;
 }
+#game-debate #pre-game {
+    margin: 0 15px;
+}
 #game-debate p {
     font-size: 1.8rem;
+}
+#all-in-button {
+    font-size: 1.5rem;
+    color: #066653;
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
 }
 
 @media screen and (min-width: 800px) {

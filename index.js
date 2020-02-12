@@ -83,6 +83,10 @@ wss.on('connection', (ws) => {
             leaveRoom(ws);
         }
         break;
+        case 'GAME_STARTED': {
+            console.log(`Game started by ${ws.nick}`);
+        }
+        break;
     }
     });
 });
