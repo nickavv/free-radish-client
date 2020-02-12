@@ -21,7 +21,7 @@ wss.on('connection', (ws) => {
     ws.on('message', (message) => {
         var radishMsg = JSON.parse(message);
         if (radishMsg.messageType == 'JOINED_ROOM') {
-            if (!rooms.has(radishMsg.roomCode)) {
+            if (!rooms.has(radishMsg.roomCode.toLowerCase())) {
                 // Tried to connect to a non-existent room
                 const response = {
                     messageType: 'ERROR_INVALID_ROOM',
@@ -31,7 +31,7 @@ wss.on('connection', (ws) => {
                 ws.send(JSON.stringify(response));
             } else {
                 // Connected successfully
-                const players = rooms.get(radishMsg.roomCode);
+                const players = rooms.get(radishMsg.roomCode.toLowerCase());
                 players.push(radishMsg.nickname);
                 const response = {
                     messageType: 'JOINED_ROOM_SUCCESS',
