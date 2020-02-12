@@ -55,17 +55,27 @@ wss.on('connection', (ws) => {
                 ws.send(JSON.stringify(response));
             } else {
                 // Connected successfully
-                ws.inGame = true;
                 const players = rooms.get(ws.room);
-                players.add(ws.nick);
-                rooms.set(ws.room, players);
-                const response = {
-                    messageType: 'JOINED_ROOM_SUCCESS',
-                    roomCode: ws.room,
-                    nickname: ws.nick,
-                    vip: players.size == 1
+                if (players.has(ws.nick)) {
+                    // Tried to connect to a non-existent room
+                    const response = {
+                        messageType: 'ERROR_NAME_TAKEN',
+                        roomCode: ws.room,
+                        nickname: ws.nick
+                    }
+                    ws.send(JSON.stringify(response));
+                } else {
+                    ws.inGame = true;
+                    players.add(ws.nick);
+                    rooms.set(ws.room, players);
+                    const response = {
+                        messageType: 'JOINED_ROOM_SUCCESS',
+                        roomCode: ws.room,
+                        nickname: ws.nick,
+                        vip: players.size == 1
+                    }
+                    ws.send(JSON.stringify(response));
                 }
-                ws.send(JSON.stringify(response));
             }
         }
         break;

@@ -15,7 +15,7 @@ body {
     margin: 20px auto;
     width: 100%;
 }
-#form-roomcode-invalid {
+.form-error {
     font-size: 0.9rem;
     color: red;
     margin: -20px 0 15px 15px;
@@ -87,7 +87,7 @@ body {
     width: 195px;
     margin-bottom: 15px;
   }
-  #form-roomcode-invalid {
+  .form-error {
       margin: -10px 0 10px 0;
   }
   #room-code-form button {

@@ -3,10 +3,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     var roomCode = '';
     var nickname = '';
+    var inGame = false;
     var vip = false;
 
     document.querySelector('#join-game-button').addEventListener('click', function() {
         document.querySelector('#form-roomcode-invalid').classList.add('hidden');
+        document.querySelector('#form-name-invalid').classList.add('hidden');
         roomCode = document.querySelector('#form-roomcode').value.toLowerCase();
         nickname = document.querySelector('#form-name').value.toLowerCase();
         var joinedMsg = {
@@ -27,7 +29,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
             case 'ERROR_INVALID_ROOM':
                 document.querySelector('#form-roomcode-invalid').classList.remove('hidden');
                 break;
+            case 'ERROR_NAME_TAKEN':
+                if (!inGame) {
+                    document.querySelector('#form-name-invalid').classList.remove('hidden');
+                }
+                break;
             case 'JOINED_ROOM_SUCCESS':
+                inGame = true;
                 vip = message.vip;
                 document.querySelector('#room-code-form').classList.add('hidden');
                 fetch('/debate.html')

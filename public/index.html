@@ -13,9 +13,10 @@
         <div id="room-code-form">
             <label for="roomcode">Room Code</label>
             <input type="text" id="form-roomcode" maxlength="5"/>
-            <p id="form-roomcode-invalid" class="hidden">Room does not exist</p>
+            <p id="form-roomcode-invalid" class="form-error hidden">Room does not exist</p>
             <label for="name">Nickname</label>
             <input type="text" id="form-name" maxlength="12"/>
+            <p id="form-name-invalid" class="form-error hidden">Name already taken</p>
             <button id="join-game-button">Join Game</button>
             <script src="js/main.js"></script>
         </div>
