@@ -42,10 +42,12 @@ wss.on('connection', (ws) => {
     ws.on('message', (message) => {
         var radishMsg = JSON.parse(message);
         ws.room = radishMsg.roomCode.toLowerCase();
-        ws.nick = radishMsg.nickname.toLowerCase();
+        if (radishMsg.nickname) {
+            ws.nick = radishMsg.nickname.toLowerCase();
+        }
         switch (radishMsg.messageType) {
         case 'ROOM_CREATED': {
-            rooms.set(room, new Set());
+            rooms.set(ws.room, new Set());
             const response = {
                 messageType: 'ROOM_CREATED_SUCCESS',
                 roomCode: ws.room
