@@ -44,6 +44,14 @@ wss.on('connection', (ws) => {
         ws.room = radishMsg.roomCode.toLowerCase();
         ws.nick = radishMsg.nickname.toLowerCase();
         switch (radishMsg.messageType) {
+        case 'ROOM_CREATED': {
+            rooms.set(room, new Set());
+            const response = {
+                messageType: 'ROOM_CREATED_SUCCESS',
+                roomCode: ws.room
+            }
+        }
+        break;
         case 'JOINED_ROOM': {
             if (!rooms.has(ws.room)) {
                 // Tried to connect to a non-existent room
