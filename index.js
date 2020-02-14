@@ -12,6 +12,8 @@ server.on('request', app);
 
 // Rooms is a map of room codes to a list of players in that room
 const rooms = new Map();
+// RoomClients is a map of room codes to the room client itself
+const roomClients = new Map();
 
 // TODO adding a room manually until game-side exists
 rooms.set('test', []);
@@ -48,6 +50,7 @@ wss.on('connection', (ws) => {
         switch (radishMsg.messageType) {
         case 'CREATE_ROOM_REQUEST': {
             rooms.set(ws.room, []);
+            roomClients.set(ws.room, ws);
             const response = {
                 messageType: 'ROOM_CREATED_SUCCESS',
                 roomCode: ws.room
@@ -111,6 +114,13 @@ wss.on('connection', (ws) => {
             gameToPlayer.messageType = "GAME_TO_PLAYER";
             gameToPlayer.nickname = radishMsg.targetPlayer;
             target.send(JSON.stringify(gameToPlayer));
+        }
+        break;
+        case 'SEND_GAME_DATA': {
+            const target = roomClients.get(ws.room);
+            const playerToGame = {...radishMsg};
+            playerToGame.messageType = "PLAYER_TO_GAME";
+            target.send(JSON.stringify(playerToGame));
         }
     }
     });
