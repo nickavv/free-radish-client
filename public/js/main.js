@@ -58,7 +58,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 document.querySelector('#waiting-for-instructions').classList.remove('hidden');
             break;
             case 'GAME_TO_PLAYER':
-                console.log(message);
+                if (message.dataType == "DEBATE_TOPICS") {
+                    showDebateInputs(message);
+                }
             break;
             }
         }
@@ -95,6 +97,50 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 nickname
             };
             socket.send(JSON.stringify(startMsg));
+        });
+    }
+
+    function showDebateInputs(message) {
+        document.querySelector('#waiting-for-instructions').classList.add('hidden');
+        document.querySelector('#make-arguments').classList.remove('hidden');
+        document.querySelector('#argument-for-topic').innerHTML = message.yours;
+        document.querySelector('#argument-against-topic').innerHTML = message.theirs;
+
+        var forSubmitButton = document.querySelector('#submit-argument-for-button');
+        var forInputField = document.querySelector('#argument-for-input');
+        var againstSubmitButton = document.querySelector('#submit-argument-against-button');
+        var againstInputField = document.querySelector('#argument-against-input');
+
+        forInputField.addEventListener('input', function() {
+            if (forInputField.value.length == 0) {
+                forSubmitButton.classList.add('disabled');
+            } else {
+                forSubmitButton.classList.remove('disabled');
+            }
+        });
+        againstInputField.addEventListener('input', function() {
+            if (againstInputField.value.length == 0) {
+                againstSubmitButton.classList.add('disabled');
+            } else {
+                againstSubmitButton.classList.remove('disabled');
+            }
+        });
+
+        forSubmitButton.addEventListener('click', function() {
+            document.querySelector('#argument-for').classList.add('hidden');
+            document.querySelector('#argument-against').classList.remove('hidden');
+        });
+
+        againstSubmitButton.addEventListener('click', function() {
+            var messageToGame = {
+                messageType: 'SEND_GAME_DATA',
+                roomCode,
+                nickname,
+                dataType: "DEBATE_ARGUMENTS",
+                argumentFor: forInputField.value,
+                argumentAgainst: againstInputField.value
+            };
+            socket.send(JSON.stringify(messageToGame));
         });
     }
 

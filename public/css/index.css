@@ -11,6 +11,7 @@ button {
     padding: 8px;
     border-radius: 5px;
     border: none;
+    font-size: 2.2rem;
 }
 button:hover {
     cursor: pointer;
@@ -39,7 +40,7 @@ button:hover {
     font-weight: bold;
     margin: 0 14px 5px;
 }
-#room-code-form input {
+input {
     font-family: 'Varela Round', sans-serif;
     padding: 2px 5px;
     width: 90%;
@@ -50,11 +51,21 @@ button:hover {
     color: #066653;
     border: 1px solid #066653;
 }
-#room-code-form button {
-    font-size: 2.2rem;
-    color: white;
+button {
     background-color: #066653;
     margin: 20px 10px;
+}
+button.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+#room-code-form button {
+    color: white;
+    background-color: #066653;
+}
+#game-content button {
+    color: #066653;
+    background-color: white;
 }
 
 #name-bar {
@@ -107,7 +118,7 @@ button:hover {
       font-size: 1rem;
       margin: 0 0 2px;
   }
-  #room-code-form input {
+  input {
     font-size: 2rem;
     width: 195px;
     margin-bottom: 15px;
