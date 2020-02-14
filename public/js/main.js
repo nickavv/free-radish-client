@@ -22,9 +22,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     socket.onmessage = (event) => {
         var message = JSON.parse(event.data);
         var room = message.roomCode.toLowerCase();
-        var nick = message.nickname.toLowerCase();
-        // Only respond to messages intended for us
-        if (room == roomCode && nick == nickname) {
+        var nick = "";
+        if (message.nickname) {
+            nick = message.nickname.toLowerCase();
+        }
+        // Only respond to messages intended for our game
+        if (room == roomCode) {
             switch(message.messageType) {
             case 'ERROR_INVALID_ROOM':
                 document.querySelector('#form-roomcode-invalid').classList.remove('hidden');
@@ -35,17 +38,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 }
             break;
             case 'PLAYER_JOINED':
-                inGame = true;
-                vip = message.vip;
-                document.querySelector('#room-code-form').classList.add('hidden');
-                fetch('/debate.html')
-                    .then((response) => {
-                        return response.text();
-                    })
-                    .then((body) => {
-                        document.querySelector('#game-content').innerHTML = body;
-                        initializeDebateGame();
-                    });
+                if (nick == nickname) {
+                    // We've joined!
+                    inGame = true;
+                    vip = message.vip;
+                    document.querySelector('#room-code-form').classList.add('hidden');
+                    fetch('/debate.html')
+                        .then((response) => {
+                            return response.text();
+                        })
+                        .then((body) => {
+                            document.querySelector('#game-content').innerHTML = body;
+                            initializeDebateGame();
+                        });
+                }
+            break;
+            case 'GAME_STARTED':
+                document.querySelector('#pre-game').classList.add('hidden');
+                document.querySelector('#waiting-for-instructions').classList.remove('hidden');
+            break;
+            case 'GAME_TO_PLAYER':
+                console.log(message);
             break;
             }
         }
@@ -77,11 +90,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         document.querySelector('#all-in-button').addEventListener('click', function() {
             var startMsg = {
-                messageType: 'GAME_STARTED',
+                messageType: 'START_GAME_REQUEST',
                 roomCode,
                 nickname
             };
             socket.send(JSON.stringify(startMsg));
         });
     }
+
 });
