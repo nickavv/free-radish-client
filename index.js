@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const { Server } = require('ws');
+const WebSocket = require('ws');
 const server = require('http').createServer();
 const app = require('./http-server');
 
@@ -16,7 +16,7 @@ const rooms = new Map();
 // TODO adding a room manually until game-side exists
 rooms.set('test', new Set());
 
-const wss = new Server({ server });
+const wss = new WebSocket.Server({ server });
 // Used for connection liveness testing
 function noop() {};
 function heartbeat() {
@@ -85,7 +85,7 @@ wss.on('connection', (ws) => {
                         nickname: ws.nick,
                         vip: players.size == 1
                     }
-                    ws.send(JSON.stringify(response));
+                    broadcast(JSON.stringify(response));
                 }
             }
         }
@@ -113,5 +113,14 @@ const interval = setInterval(function ping() {
     ws.ping(noop);
   });
 }, 1000);
+
+function broadcast(message) {
+    wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(message);
+        }
+    });
+
+}
 
 server.listen(port, () => console.log(`Free Radish is listening on port ${port}`));
