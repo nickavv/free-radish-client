@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         roomCode = document.querySelector('#form-roomcode').value.toLowerCase();
         nickname = document.querySelector('#form-name').value.toLowerCase();
         var joinedMsg = {
-            messageType: 'JOINED_ROOM',
+            messageType: 'ROOM_JOIN_REQUEST',
             roomCode,
             nickname
         };
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     document.querySelector('#form-name-invalid').classList.remove('hidden');
                 }
             break;
-            case 'JOINED_ROOM_SUCCESS':
+            case 'PLAYER_JOINED':
                 inGame = true;
                 vip = message.vip;
                 document.querySelector('#room-code-form').classList.add('hidden');

@@ -46,15 +46,16 @@ wss.on('connection', (ws) => {
             ws.nick = radishMsg.nickname.toLowerCase();
         }
         switch (radishMsg.messageType) {
-        case 'ROOM_CREATED': {
+        case 'CREATE_ROOM_REQUEST': {
             rooms.set(ws.room, new Set());
             const response = {
                 messageType: 'ROOM_CREATED_SUCCESS',
                 roomCode: ws.room
             }
+            ws.send(JSON.stringify(response));
         }
         break;
-        case 'JOINED_ROOM': {
+        case 'ROOM_JOIN_REQUEST': {
             if (!rooms.has(ws.room)) {
                 // Tried to connect to a non-existent room
                 const response = {
@@ -79,7 +80,7 @@ wss.on('connection', (ws) => {
                     players.add(ws.nick);
                     rooms.set(ws.room, players);
                     const response = {
-                        messageType: 'JOINED_ROOM_SUCCESS',
+                        messageType: 'PLAYER_JOINED',
                         roomCode: ws.room,
                         nickname: ws.nick,
                         vip: players.size == 1
