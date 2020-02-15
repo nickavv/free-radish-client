@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var nickname = '';
     var inGame = false;
     var vip = false;
+    var roundId = '';
 
     document.querySelector('#join-game-button').addEventListener('click', function() {
         document.querySelector('#form-roomcode-invalid').classList.add('hidden');
@@ -62,6 +63,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     showDebateInputs(message);
                 }
             break;
+            case 'ALL_PLAYERS_READY':
+                document.querySelector('#waiting-for-other-players').classList.add("hidden");
+                document.querySelector('#pre-voting').classList.remove("hidden");
+            break;
             }
         }
     };
@@ -101,6 +106,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     function showDebateInputs(message) {
+        roundId = message.roundId;
+
         document.querySelector('#waiting-for-instructions').classList.add('hidden');
         document.querySelector('#make-arguments').classList.remove('hidden');
         document.querySelector('#argument-for-topic').innerHTML = message.yours;
@@ -132,11 +139,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
         });
 
         againstSubmitButton.addEventListener('click', function() {
+            document.querySelector('#make-arguments').classList.add("hidden");
+            document.querySelector('#waiting-for-other-players').classList.remove("hidden");
             var messageToGame = {
                 messageType: 'SEND_GAME_DATA',
                 roomCode,
                 nickname,
                 dataType: "DEBATE_ARGUMENTS",
+                roundId,
                 argumentFor: forInputField.value,
                 argumentAgainst: againstInputField.value
             };

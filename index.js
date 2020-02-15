@@ -122,6 +122,12 @@ wss.on('connection', (ws) => {
             playerToGame.messageType = "PLAYER_TO_GAME";
             target.send(JSON.stringify(playerToGame));
         }
+        break;
+        case 'ALL_PLAYERS_READY': {
+            // Pass this message along to all players so they can show a new screen
+            broadcast(message);
+        }
+        break;
     }
     });
 });
