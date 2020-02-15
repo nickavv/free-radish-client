@@ -63,9 +63,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     showDebateInputs(message);
                 }
             break;
-            case 'ALL_PLAYERS_READY':
-                document.querySelector('#waiting-for-other-players').classList.add("hidden");
-                document.querySelector('#pre-voting').classList.remove("hidden");
+            case 'SEND_PLAYER_BROADCAST':
+                if (message.dataType == "ALL_PLAYERS_READY") {
+                    document.querySelector('#waiting-for-other-players').classList.add("hidden");
+                }
+                if (message.dataType == "DEBATE_ROUND_STARTING") {
+                    document.querySelector('#pre-voting').classList.remove("hidden");
+                    document.querySelector('#pre-voting p').classList.remove("hidden");
+                    if (message.roundId == roundId) {
+                        document.querySelector('#pre-voting .theirs').classList.add("hidden");
+                    } else {
+                        document.querySelector('#pre-voting .mine').classList.add("hidden");
+                    }
+                }
             break;
             }
         }

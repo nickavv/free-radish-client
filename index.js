@@ -109,6 +109,7 @@ wss.on('connection', (ws) => {
         }
         break;
         case 'SEND_PLAYER_DATA': {
+            // The game is sending a message to a single player
             const target = findPlayerInRoom(ws.room, radishMsg.targetPlayer).client;
             const gameToPlayer = {...radishMsg};
             gameToPlayer.messageType = "GAME_TO_PLAYER";
@@ -117,14 +118,15 @@ wss.on('connection', (ws) => {
         }
         break;
         case 'SEND_GAME_DATA': {
+            // A player is sending a message to the game
             const target = roomClients.get(ws.room);
             const playerToGame = {...radishMsg};
             playerToGame.messageType = "PLAYER_TO_GAME";
             target.send(JSON.stringify(playerToGame));
         }
         break;
-        case 'ALL_PLAYERS_READY': {
-            // Pass this message along to all players so they can show a new screen
+        case 'SEND_PLAYER_BROADCAST': {
+            // Game is sending a message to all players
             broadcast(message);
         }
         break;
