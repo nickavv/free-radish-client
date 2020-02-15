@@ -57,6 +57,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
             case 'GAME_STARTED':
                 document.querySelector('#pre-game').classList.add('hidden');
                 document.querySelector('#waiting-for-instructions').classList.remove('hidden');
+                document.querySelector('#skip-instructions-button').addEventListener('click', function handler() {
+                    var messageToGame = {
+                        messageType: 'SEND_GAME_DATA',
+                        roomCode,
+                        nickname,
+                        dataType: "SKIP_INSTRUCTIONS"
+                    };
+                    socket.send(JSON.stringify(messageToGame));
+                    this.removeEventListener('click', handler);
+                });
             break;
             case 'GAME_TO_PLAYER':
                 if (message.dataType == "DEBATE_TOPICS") {
