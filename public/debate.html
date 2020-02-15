@@ -11,29 +11,50 @@
         </div>
     </div>
 
-    <div id="waiting-for-instructions" class="hidden">
-        <p>Listen to these instructions, then get ready to play</p>
-    </div>
-
-    <div id="make-arguments" class="hidden">
-        <div id="argument-for">
-            <p>What's the best thing about <span class="topic" id="argument-for-topic"></span></p>
-            <input type="text" id="argument-for-input" maxlength="32"/>
-            <button id="submit-argument-for-button" class="disabled">Send</button>
+    <div id="game-area">
+        <div id="waiting-for-instructions" class="hidden">
+            <p>Listen to these instructions, then get ready to play</p>
         </div>
-        <div id="argument-against" class="hidden">
-            <p>What's the worst thing about <span class="topic" id="argument-against-topic"></span></p>
-            <input type="text" id="argument-against-input" maxlength="32"/>
-            <button id="submit-argument-against-button" class="disabled">Send</button>
+
+        <div id="make-arguments" class="hidden">
+            <div id="argument-for">
+                <p>What's the best thing about <span class="topic" id="argument-for-topic"></span></p>
+                <input type="text" id="argument-for-input" maxlength="32"/>
+                <button id="submit-argument-for-button" class="disabled">Send</button>
+            </div>
+            <div id="argument-against" class="hidden">
+                <p>What's the worst thing about <span class="topic" id="argument-against-topic"></span></p>
+                <input type="text" id="argument-against-input" maxlength="32"/>
+                <button id="submit-argument-against-button" class="disabled">Send</button>
+            </div>
         </div>
-    </div>
 
-    <div id="waiting-for-other-players" class="hidden">
-        <p>You type fast! Sit back and wait.</p>
-    </div>
+        <div id="waiting-for-other-players" class="hidden">
+            <p>You type fast! Sit back and wait.</p>
+        </div>
 
-    <div id="pre-voting" class="hidden">
-        <p class="theirs">Listen to the debate, think about how you're going to vote!</p>
-        <p class="mine">This is your topic, get ready to make a closing statement!</p>
+        <div id="pre-voting" class="hidden">
+            <p class="theirs">Listen to the debate, think about how you're going to vote!</p>
+            <p class="mine">This is your topic, get ready to make a closing statement!</p>
+        </div>
+
+        <div id="voting" class="hidden">
+            <div class="theirs">
+                <p>Who won?</p>
+                <button id="vote-left-button">Player 1</button>
+                <button id="vote-right-button">Player 2</button>
+            </div>
+            <div class="mine">
+                <p>People are voting on your debate now! Good luck.</p>
+            </div>
+            <div id="post-voting" class="hidden">
+                <p>Thanks for voting! Sit back and wait til the next round.</p>
+            </div>
+        </div>
+
+        <div id="post-game" class="hidden">
+            <p>That's the game! Thanks for playing.</p>
+            <button class="vip-only" id="game-reset-button">Restart?</button>
+        </div>
     </div>
 </div>

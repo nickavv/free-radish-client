@@ -125,7 +125,7 @@ wss.on('connection', (ws) => {
             target.send(JSON.stringify(playerToGame));
         }
         break;
-        case 'SEND_PLAYER_BROADCAST': {
+        case 'SEND_BROADCAST': {
             // Game is sending a message to all players
             broadcast(message);
         }

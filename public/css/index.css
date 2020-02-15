@@ -67,6 +67,9 @@ button.disabled {
     color: #066653;
     background-color: white;
 }
+#game-area {
+    padding: 0 10px;
+}
 
 #name-bar {
     position: relative;
